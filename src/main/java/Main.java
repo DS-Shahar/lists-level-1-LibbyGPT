@@ -11,7 +11,7 @@ public class Main {
         printList(list);
 
         System.out.println("\nList in reverse order:");
-        printListReverse(list);
+        reverseList(list);
 
         Node<Integer> userInputList = buildListFromInput();
         System.out.println("\nUser-input list:");
@@ -28,13 +28,13 @@ public class Main {
 
         System.out.println("\nEnter a number to delete:");
         int numberToDelete = scanner.nextInt();
-        userInputList = deleteFirstOccurrence(userInputList, numberToDelete);
+        userInputList = deleteFirstAppearance(userInputList, numberToDelete);
         System.out.println("List after deleting " + numberToDelete + ":");
         printList(userInputList);
 
         System.out.println("\nEnter an index to delete:");
         int indexToDelete = scanner.nextInt();
-        userInputList = deleteAtIndex(userInputList, indexToDelete);
+        userInputList = deleteIndex(userInputList, indexToDelete);
         System.out.println("List after deleting index " + indexToDelete + ":");
         printList(userInputList);
     }
@@ -59,9 +59,9 @@ public class Main {
         System.out.println("null");
     }
 
-    public static void printListReverse(Node<Integer> head) {
+    public static void reverseList(Node<Integer> head) {
         if (head == null) return;
-        printListReverse(head.getNext());
+        reverseList(head.getNext());
         System.out.println(head.getValue());
     }
 
@@ -106,7 +106,7 @@ public class Main {
         return false;
     }
 
-    public static Node<Integer> deleteFirstOccurrence(Node<Integer> head, int number) {
+    public static Node<Integer> deleteFirstAppearance(Node<Integer> head, int number) {
         if (head == null) return null;
         if (head.getValue() == number) return head.getNext();
 
@@ -120,7 +120,7 @@ public class Main {
         return head;
     }
 
-    public static Node<Integer> deleteAtIndex(Node<Integer> head, int index) {
+    public static Node<Integer> deleteIndex(Node<Integer> head, int index) {
         if (index < 0 || head == null) return head;
         if (index == 0) return head.getNext();
 
