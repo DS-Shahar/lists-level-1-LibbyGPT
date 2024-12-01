@@ -121,12 +121,15 @@ public class Main {
     }
 
     public static Node<Integer> deleteIndex(Node<Integer> head, int index) {
-        if (index < 0 || head == null) return head;
-        if (index == 0) return head.getNext();
+        if (index < 0 || head == null) 
+            return head;
+        if (index == 0) 
+            return head.getNext();
 
         Node<Integer> current = head;
         for (int i = 0; i < index - 1; i++) {
-            if (current == null || !current.hasNext()) return head;
+            if (current == null || !current.hasNext()) 
+                return head;
             current = current.getNext();
         }
         if (current.hasNext()) {
