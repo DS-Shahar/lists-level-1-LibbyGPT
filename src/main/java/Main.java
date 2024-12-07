@@ -37,6 +37,13 @@ public class Main {
         userInputList = deleteIndex(userInputList, indexToDelete);
         System.out.println("List after deleting index " + indexToDelete + ":");
         printList(userInputList);
+
+        System.out.println("\nEnter values for L1 (end with -1):");
+        Node<Integer> l1 = buildListFromInput();
+        System.out.println("Enter values for L2 (end with -1):");
+        Node<Integer> l2 = buildListFromInput();
+        boolean allValuesInL2 = areAllValuesInL2(l1, l2);
+        System.out.println("All values of L1 appear in L2: " + allValuesInL2);
     }
 
     public static Node<Integer> buildListFromArray(int[] array) {
@@ -136,5 +143,18 @@ public class Main {
             current.setNext(current.getNext().getNext());
         }
         return head;
+    }
+
+    public static boolean areAllValuesInL2(Node<Integer> l1, Node<Integer> l2) {
+        return areAllValuesInL2Helper(l1, l2);
+    }
+
+    private static boolean areAllValuesInL2Helper(Node<Integer> l1, Node<Integer> l2) {
+        if (l1 == null) 
+        	return true;
+        if (!containsNumber(l2, l1.getValue())) 
+        	return false;
+        
+        return areAllValuesInL2Helper(l1.getNext(), l2);
     }
 }
