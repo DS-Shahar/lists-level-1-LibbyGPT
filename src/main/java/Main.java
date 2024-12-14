@@ -4,50 +4,53 @@ import java.util.Scanner;
 
 public class Main {
 
-	public static void main(String[] args) {
-	    int[] array = {1, 2, 3, 4, 5};
-	    Node<Integer> list = buildListFromArray(array);
-	    System.out.println("List from array:");
-	    printList(list);
+    public static void main(String[] args) {
+        int[] array = {1, 2, 3, 4, 5};
+        Node<Integer> list = buildListFromArray(array);
+        System.out.println("List from array:");
+        printList(list);
 
-	    System.out.println("\nList in reverse order:");
-	    reverseList(list);
+        System.out.println("\nList in reverse order:");
+        reverseList(list);
 
-	    Node<Integer> userInputList = buildListFromInput();
-	    System.out.println("\nUser-input list:");
-	    printList(userInputList);
+        Node<Integer> userInputList = buildListFromInput();
+        System.out.println("\nUser-input list:");
+        printList(userInputList);
 
-	    System.out.println("\nEven numbers in the list:");
-	    printEvenNumbers(userInputList);
+        System.out.println("\nEven numbers in the list:");
+        printEvenNumbers(userInputList);
 
-	    System.out.println("\nEnter a number to check:");
-	    Scanner scanner = new Scanner(System.in);
-	    int numberToCheck = scanner.nextInt();
-	    boolean exists = containsNumber(userInputList, numberToCheck);
-	    System.out.println("Number " + numberToCheck + " exists in list: " + exists);
+        System.out.println("\nEnter a number to check:");
+        Scanner scanner = new Scanner(System.in);
+        int numberToCheck = scanner.nextInt();
+        boolean exists = containsNumber(userInputList, numberToCheck);
+        System.out.println("Number " + numberToCheck + " exists in list: " + exists);
 
-	    System.out.println("\nEnter a number to delete:");
-	    int numberToDelete = scanner.nextInt();
-	    userInputList = deleteFirstAppearance(userInputList, numberToDelete);
-	    System.out.println("List after deleting " + numberToDelete + ":");
-	    printList(userInputList);
+        System.out.println("\nEnter a number to delete:");
+        int numberToDelete = scanner.nextInt();
+        userInputList = deleteFirstAppearance(userInputList, numberToDelete);
+        System.out.println("List after deleting " + numberToDelete + ":");
+        printList(userInputList);
 
-	    System.out.println("\nEnter an index to delete:");
-	    int indexToDelete = scanner.nextInt();
-	    userInputList = deleteIndex(userInputList, indexToDelete);
-	    System.out.println("List after deleting index " + indexToDelete + ":");
-	    printList(userInputList);
+        System.out.println("\nEnter an index to delete:");
+        int indexToDelete = scanner.nextInt();
+        userInputList = deleteIndex(userInputList, indexToDelete);
+        System.out.println("List after deleting index " + indexToDelete + ":");
+        printList(userInputList);
 
-	    System.out.println("\nEnter values for L1 (end with -1):");
-	    Node<Integer> l1 = buildListFromInput();
-	    System.out.println("Enter values for L2 (end with -1):");
-	    Node<Integer> l2 = buildListFromInput();
+        System.out.println("\nEnter values for L1 (end with -1):");
+        Node<Integer> l1 = buildListFromInput();
+        System.out.println("Enter values for L2 (end with -1):");
+        Node<Integer> l2 = buildListFromInput();
 
-	    System.out.println("Common values between L1 and L2:");
-	    Node<Integer> commonValues = getListOfSimillarValues(l1, l2);
-	    printList(commonValues);  // Print the list with common values
-	}
+        System.out.println("Common values between L1 and L2:");
+        Node<Integer> commonValues = getListOfSimillarValues(l1, l2);
+        printList(commonValues);
 
+        System.out.println("\nList L1 after removing common values with L2:");
+        l1 = deleteCommonValues(l1, l2);
+        printList(l1);
+    }
 
     public static Node<Integer> buildListFromArray(int[] array) {
         if (array.length == 0) return null;
@@ -154,9 +157,9 @@ public class Main {
 
     private static boolean areAllValuesInL2Helper(Node<Integer> l1, Node<Integer> l2) {
         if (l1 == null) 
-        	return true;
+            return true;
         if (!containsNumber(l2, l1.getValue())) 
-        	return false;
+            return false;
         
         return areAllValuesInL2Helper(l1.getNext(), l2);
     }
@@ -207,7 +210,21 @@ public class Main {
 
         return dummy.getNext();
     }
-    
-    
 
+    public static Node<Integer> deleteCommonValues(Node<Integer> l1, Node<Integer> l2) {
+        Node<Integer> dummy = new Node<>(null);
+        dummy.setNext(l1);
+        Node<Integer> prev = dummy;
+
+        while (l1 != null) {
+            if (containsNumber(l2, l1.getValue())) {
+                prev.setNext(l1.getNext());
+            } else {
+                prev = l1;
+            }
+            l1 = l1.getNext();
+        }
+
+        return dummy.getNext();
+    }
 }
